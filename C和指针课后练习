@@ -1,0 +1,306 @@
+/*
+5-1.编写一个程序，从标准输入读取字符，并把它们写到标准输出中。除了大写字母字符要          （getchar与putchar ASCII码）
+转换为小写字母之外，所有字符的输出形式应该和它的输入形式完全相同
+*/
+
+#include<stdio.h>
+int main()
+{
+	char ch;                */     
+	while ((ch = getchar()) != EOF)                    //处理回车
+	{
+		if (ch >= 'A'&&ch <= 'Z')
+		{
+			ch = ch + 32;
+		}
+		putchar(ch);
+	}
+	return 0;
+}
+
+/*
+getchar的工作方式：
+getchar()按顺序从缓冲区读走一个字符，相当于清除缓冲区，每读取一次缓冲区少一个字符，
+例如：键盘输入数据 1 2 3 4 5 回车
+输入缓冲区中数据：1 2 3 4 5 回车
+点击回车后，getchar()开始从缓冲区中读取字符，一次读取一个
+第一次 getchar() = '1', 缓冲区数据还有：2 3 4 5
+第二次 getchar() = '2', 缓冲区数据还有：3 4 5
+第二次 getchar() = '3', 缓冲区数据还有：4 5
+...
+直到缓冲区中的数据被读取完
+int i=0; //初始化
+*/
+
+
+/*
+5-2.编写一个程序，从标准输入读取字符，并把她们写道标准输出中。所有的非字母字符都
+完全按照他的输入形式输出，字母字符在输出前进行加密。
+加密方法为：每个字母被修改为在字母表上距其13个位置的字母例如A-N,B-O,Z-M,以此
+类推。注意大小写字母都应该被转换。
+*/
+
+
+#include<stdio.h>
+int main(void)
+{
+	char ch;
+	while ((ch = getchar()) != EOF)                    //处理回车
+	{
+		if (ch >= 'A'&&ch <= 'Z' )
+		{
+			if (ch > 'M')
+				ch -= 13;
+			else
+				ch += 13;
+		}
+		if (ch >= 'a'&&ch <= 'z')
+		{
+			if (ch > 'm')
+				ch -= 13;
+			else
+				ch += 13;
+		}
+		putchar(ch);
+	}
+	return 0;
+}
+
+/*
+5-3.编写函数： unsigned int reverse_bit(unsigned int value); 这个函数的返回值value的二进制位模式从左到右翻转后的值。（位运算）
+例：25在32位机器上25这个值包含下列各位： 
+00000000000000000000000000011001 
+翻转后：（2550136832） 
+10011000000000000000000000000000 
+程序结果返回： 
+2550136832 
+
+（看到翻转第一个想到的是栈）
+
+位运算：
+含义	   C语言	
+按位与	   a & b	
+按位或	   a | b	
+按位异或	   a ^ b	
+按位取反	   ~a	
+左移	   a << b	
+带符号右移  a >> b
+*/
+
+
+#include<stdio.h>
+#include<windows.h>
+int reverse_bit(unsigned int value)
+{
+	int a = 0;
+	int b = 0;
+	int i = 1;
+	for (; i <= 31; i++)
+	{
+		a = value & 1;                //取value的最后一位
+		value = value >> 1;           //value的数值右移，取前一位
+		b = a | b;                    //将a(value)的最后一位赋给b
+		b = b << 1;                   //b左移一位，空出最后一位给value的最后一位
+	}
+	return b;
+}
+int main()
+{
+	printf("%u\n", reverse_bit(25));
+	system("pause");
+	return 0;
+}
+
+
+/*
+4.编写一组函数，实现位数组。函数的原型应该如下
+void set_bit(char bit_array[] , unsigned bit_number);    //把指定的位设置为1
+
+void clear_bit(char bit_array[] , unsigned bit_number); //第二个函数把指定的位清零
+
+void assign_bit(char bit_array[] , unsigned bit_number , int value );
+      //如果value的值位1把指定的位清0，否则设置为1
+
+int  test_bit(char bit_array[] , unsigned bit_number);  //如果参数中指定的位不是0，函数就返回
+真 否则返回假
+
+每个函数的第1个参数是字符数组用于实际储存所有的位。第二个参数用于标识需要访问的位。
+*/
+
+
+#include<stdio.h>
+#include<windows.h>
+
+void set_bit(char bit_array[], unsigned bit_number)  //把指定的位设置为1
+{
+	bit_array[bit_number-1] = bit_array[bit_number-1] | 1;
+	return;
+}
+
+void clear_bit(char bit_array[], unsigned bit_number)//把指定的位清零
+{
+	bit_array[bit_number-1] = bit_array[bit_number-1] & 0;
+}
+
+void assign_bit(char bit_array[], unsigned bit_number, int value)//如果value的值位1 把指定的位清0 否则设置为1
+{
+	if(value == 1)
+		bit_array[bit_number-1] = 0;
+	else
+		bit_array[bit_number-1] = 1;
+	
+}
+
+int  test_bit(char bit_array[], unsigned bit_number)   //如果参数中指定的位不是0，函数就返回真 否则返回假
+{
+	if (bit_array[bit_number-1] == 0)
+		return 0;
+	else
+		return 1;
+}
+int main()
+{
+	char bit_array[8] = { 0 };
+	unsigned bit_number;
+	int value,n,i,a,b=1;
+	
+	while (b) 
+	{
+		for (i = 7; i >= 0; i--)
+		{
+			printf("%d", bit_array[i]);
+			
+		}printf("\n");
+		printf("1.函数1\n");
+		printf("2.函数2\n");
+		printf("3.函数3\n");
+		printf("4.函数4\n");
+		printf("5.结束\n");
+		scanf("%d", &n);
+		switch (n)
+		{
+		case 1:
+		{
+			printf("输入位\n");
+			scanf("%u", &bit_number);
+			set_bit(bit_array, bit_number);
+			break;
+		}
+		case 2:
+		{
+			printf("输入位\n");
+			scanf("%u", &bit_number);
+			clear_bit(bit_array, bit_number);
+			break;
+		}
+		case 3:
+		{
+			printf("输入位\n");
+			scanf("%u", &bit_number);
+			printf("输入value\n");
+			scanf("%d", &value);
+			assign_bit(bit_array, bit_number, value);
+			break;
+		}
+		case 4:
+		{
+			printf("输入位：\n");
+			scanf("%u", &bit_number);
+			a = test_bit(bit_array, bit_number);
+			printf("%d\n", a);
+			break;
+		}
+		case 5:
+		{
+			b = 0;
+			break;
+		}
+		}
+
+		for (i = 7; i >= 0; i--)
+		{
+			printf("%d", bit_array[i]);
+
+		}printf("\n");
+	}
+
+	system("pause");
+	return 0;
+}
+
+
+/*
+5.编写一个函数，把一个给定的值存储到另一个整数中指定的几位，它的原型如下：
+
+int store_bit_field(int original_value,int value_to_store,unsigned starting_bit,unsigned ending_bit);
+
+假定整数中的位是从右到左进行编号。结束位置不小于起始位置。
+为了更清楚的说明，函数应该返回下列值：
+
+
+
+原始值     需要存储的值    结束位置     起始位置    返回值
+
+0x0          0x1           4           4          0x10
+
+0xffff       0x123         15          4          0x123f
+
+0xffff       0x123         13          9          0xc7ff
+
+
+
+把一个值存储到另一个整数中指定的几个位分为5个步骤（以上表最后一个为例子进行说明）
+
+1：创建一个掩码（mask），它是一个值，其中需要存储的位置相对应的那几个位置为1。此时掩码为001111100000000.
+
+2：用掩码的反码对原值进行and操作，将那几个位置设置为0.原值111111111111111(0xffff)，操作后变为110000011111111.
+
+3：将新值左移，是它与那几个需要存储的位对齐。新值0000000100100011（0x123）,左移后变为0100011000000000.
+
+4：吧以为后的值与掩码进行and操作，确保除那几个需要存储的为之外的其余位都设置为0.进行这个操作后，值变为000001100000000.
+
+5把结果值与原值进行or操作，结果为11000111111111（0xc7ff），也就是最终的返回值
+*/
+
+
+
+typedef unsigned int u_int;
+u_int get_mask(int begin,int end)
+{
+	/*
+	u_int index = 1u;
+	int n = 0;
+	
+	//计算出机器字长n
+	for(index = 1; index != 0; index <<= 1)
+	{
+		n++;
+	}
+	printf("机器字长：%d",n);
+	*/
+	
+	//要设置的位数
+	int len = end - begin;
+	
+	//取得掩码
+	u_int mask = 2u;
+	for(int i = 0; i < len; i++)
+	{
+		mask |= 1;
+		mask <<= 1;
+	}
+	mask <<= begin - 1;
+	return mask;
+}
+int store_bit_field(int original_value,int value_to_store,unsigned starting_bit,unsigned ending_bit)
+{
+	u_int mask = get_mask(starting_bit,ending_bit);
+	original_value &= ~mask;
+	value_to_store <<= starting_bit;
+	value_to_store &= mask;
+	return value_to_store | original_value;
+}
+
+
+
+
