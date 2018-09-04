@@ -307,33 +307,3 @@ int store_bit_field(int original_value,int value_to_store,unsigned starting_bit,
 
 
 
-//6-1
-//函数在一个字符串中进行搜索，查找所有在一个给定字符集合中出现的字符
-//函数原型：char *find_char( char const *source, char const *chars);
-#include<stdio.h>
-#include<string.h>
-char *find_char(char const *source, char const *chars)
-{
-	const char *p;
-	if (source == NULL || chars == NULL)
-		return NULL;
-	else
-	{
-		while ( *(source++) != '\0')
-		for (p = chars; *p != '\0';p++)
-				if (*source == *p)
-					return (char*)source ;
-	}
-	return NULL;
-}
- 
-int main()
-{
-	char *p = "ABC";
-	char *q = "XRCQEF";
-	char *result; 
-	result = find_char(p,q);
-	printf("result:%s\n",result);
-	getchar();
-	return 0;
-}
