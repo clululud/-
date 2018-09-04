@@ -1,0 +1,47 @@
+//6-1
+//函数在一个字符串中进行搜索，查找所有在一个给定字符集合中出现的字符
+//函数原型：char *find_char( char const *source, char const *chars);
+
+
+#include<stdio.h>
+#include<string.h>
+char *find_char(char const *source, char const *chars)
+{
+	const char *p;                   
+	if (source == NULL || chars == NULL)            //如果source与chars都为空则直接返回NULL
+		return NULL;
+	else                                            //
+	{
+		while ( *(source++) != '\0')
+    //(1)++操作符产生source的一份拷贝(2)++操作符增加source的值(3)最后在source的拷贝上执行间接访问操作
+		for (p = chars; *p != '\0';p++)
+				if (*source == *p)
+					return (char*)source ;                  //返回一个char*型指针
+	}
+	return NULL;
+}
+ 
+int main()
+{
+	char *p = "ABC";
+	char *q = "XRCQEF";
+	char *result; 
+	result = find_char(p,q);
+	printf("result:%s\n",result);
+	getchar();
+	return 0;
+}
+
+/*
+定义：左值与右值的定义在于一个赋值等号，赋值等号左边成为左值，等号右边成为右值
+
+左值（L-value）：表示存储在计算机内存的对象，可寻址，相当于地址值
+
+右值（R-value）：代表的为真实值，可读，即数据值
+*/
+
+
+
+
+
+
