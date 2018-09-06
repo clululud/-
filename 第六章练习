@@ -13,7 +13,9 @@ char *find_char(char const *source, char const *chars)
 	else                                            //
 	{
 		while ( *(source++) != '\0')
+		
     //(1)++操作符产生source的一份拷贝(2)++操作符增加source的值(3)最后在source的拷贝上执行间接访问操作
+		
 		for (p = chars; *p != '\0';p++)
 				if (*source == *p)
 					return (char*)source ;                  //返回一个char*型指针
@@ -51,3 +53,159 @@ int main()
 //子串，然后函数返回1.如果substr多次出现在str中，函数只删除第一次出现的子串。函数的第二个参数绝不会被修改。
 //举个例子，假定str指向FGH、CDF或者XABC、函数应该返回0，str未作任何修改。但是如果substr指向CDE,函数就把str修改为指向ABFG，
 //方法是把F、G和结尾的NULL字节复制到C的位置，然后函数返回1. 不论出现什么情况，函数的第2个参数都不应该被修改。
+
+
+
+#include <stdlib.h>
+#include <stdio.h>
+ 
+int del_substr(char *str,char const *substr)
+{
+	char const *subp;
+	char *strp = str;
+	char *temp ;
+	int flag = 1;
+ 
+	if((!*str)||(*substr == '\0'))//如果主串为空或子串为空字符串，则返回
+	{
+		return 0;
+	}
+	while(*strp)
+	{
+		temp = strp;
+		for(subp = substr;*subp;subp++)
+		{
+			if(*strp == *subp)//如果当前的主串和子串字符相等
+			{
+				strp++;      //则主串指针向前移一个字符
+				flag = 0;    //设置为false，防止后续的主串指针，重复移动
+				continue;     
+			}
+			break;
+		}
+		if(*subp == '\0')     //如果subP指向末尾的'\0'则表示子串匹配成功
+		{
+			while(*temp++ = *strp++)//进行字符复制
+			{
+				;
+			}
+			break;
+		}
+		if(flag)
+		{
+			strp++;
+		}
+	}
+	return 1;
+}
+ 
+int main()
+{
+    char str1 [] = "aabcdefgh324";
+    char const * str2= "abc";
+ 
+    printf("before delete: %s\n", str1);
+    printf("will delete che chars: %s\n", str2);
+    del_substr(str1, str2);
+    printf("After delete: %s\n", str1);
+ 
+    return 0;
+}
+
+
+
+/*
+6-3
+函数把参数字符串中的字符反向排列。
+*/
+#include <stdio.h>
+#include <string.h>
+
+void reverse_string(char *string)
+
+{
+	int i,h;
+	char j;
+	i = strlen(string);
+
+	for (h = 0; i>=0; i--)
+	{
+		j = *(string + i);
+		putchar(j);
+	}
+	return;
+}
+
+int main()
+{
+	char str[] = "aabcdefgh324";
+	reverse_string(str);
+
+	getchar();
+	return 0;
+}
+
+
+
+/*
+6-4
+Eratosthenes筛选法是一种计算质数的有效方法 
+1 写下所有从2至某个上限之间的所有整数
+2 从2之后所有逢双的数全部剔除
+3 从3之后 每逢三个数删除一次
+4 删除所有除了5以外的5的倍数
+  以此类推最后列表中未被剔除的数均为质数
+即删除1 2 3 4 5 7的倍数 
+*/
+
+
+                  /*
+		  Eratosthenes质数筛选法
+		  (看不懂)
+		  */
+#include<stdio.h>
+#include<math.h>
+#define TURE 1
+#define FALSE 0     //C语言缺少显式的bool类型,因此用1表示逻辑真，用0表示逻辑假
+#define NUM 1000    //筛选出1-1000之内的素数
+
+int main()
+{
+	int a[NUM], i, j , h = 0;
+	int *p;
+	for (p = a; p < a + NUM; p++)
+	{
+		*p = TURE;
+	}                                  //a[NUM] 初始化为TURE
+
+	a[0] = FALSE;    //1既不是素数也不是合数
+	
+	for (i = 2; i < sqrt(NUM); i++)      //sqrt(1000) = 31.6
+	{
+		for (j = i + 1; j <= NUM; j++)   // j是？？？就是从这里开始看不懂
+		{
+			if (j % i == 0)
+			{
+				a[j - 1] = FALSE;
+				continue;
+			}
+		}
+	}
+
+	for (p = a; p < a + NUM; p++)
+	{
+		if (*p == TURE)
+		{
+			printf("%8d", p - a + 1);    //很神奇！但是为什么？
+			h++;
+		}
+	}
+	printf("\n");
+	printf("%d", h);
+
+	getchar();
+	return 0;
+}
+
+
+
