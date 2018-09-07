@@ -14,15 +14,84 @@ int hermitel(int n, int x)
 	return a;
 }
 
-int main(void)
-{
-	int n, x,s = 0;
-	printf("输入 n x\n");
-	scanf("%d", &n);
-	scanf("%d", &x);
-	s = hermitel(n, x);
-	printf("%d\n", s);
 
-	system("pause");
-	return 0;
+
+/*
+   7-2  编写函数gdc计算最大公约数
+            
+*/
+
+int gcd(int M, int N)
+{
+	int R,s = 0;
+	if (M <= 0 || N <= 0)
+		return 0;
+	R = M%N;
+	
+	if (R == 0)
+		s = N;
+	else if (R > 0)
+		gcd(N, R);
+	return s;
 }
+
+
+/*
+   7-3 为下面这个函数原型编写函数定义
+          int ascii_to_integer(char *string);
+       这个字符串参数必须包含一个或多个数字 函数应该把这些数字字符转换为整数并返回这个整数 如果字符串参数包含了任何非数字字符 
+       函数就返回零
+       ascii码表中30~39对应数字0~9
+*/
+
+int ascii_to_integer(char *str)
+{
+	int i = 0,m = 0,sum = 0;
+	char *ch = str;
+
+
+	while (*ch != '\0')       //判断字符是否是数字  有任意一个非数字返回0
+	{
+		if (*ch<48 || *ch>57)    
+			return 0;
+		i++;
+		ch++;
+	}
+
+	ch = str;
+
+	for (; m<i; m++)
+	{
+		sum = sum * 10 + (*(ch + m) - '0');   //减'0'就是将ASCII转换为整形
+	}
+	return sum;                               //返回一个整型数sum
+}
+
+
+/*
+   7-4  编写一个名叫max_list 的函数，它用于检查任意数目的整型参数并返回他们中的最大值。参数列表必须以一个负值结尾，提示列表的结束
+
+*/
+int max_list(int *a)
+{
+	int max;
+	max = *a;
+	while (*a != -1)
+	{
+		if (max < *++a)
+			max = *a;
+	}
+	return max;
+}
+
+
+
+/*
+    7-5 实现一个简化的printf函数，它能处理%d,%f,%s,%c格式吗。根据ANSI标准的原则 其他格式吗的行为是未定义的 你可以假定已经存在
+    函数 print_integer 和 print_float ，用于打印这些类型的值。对于另外两种类型的值，使用putchar来打印。
+*/
+
+	
+	
+	
+
