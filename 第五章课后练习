@@ -128,8 +128,6 @@ int  test_bit(char bit_array[] , unsigned bit_number);  //如果参数中指定�
 */
 
 
-#include<stdio.h>
-#include<windows.h>
 
 void set_bit(char bit_array[], unsigned bit_number)  //把指定的位设置为1
 {
@@ -157,75 +155,6 @@ int  test_bit(char bit_array[], unsigned bit_number)   //如果参数中指定�
 		return 0;
 	else
 		return 1;
-}
-int main()
-{
-	char bit_array[8] = { 0 };
-	unsigned bit_number;
-	int value,n,i,a,b=1;
-	
-	while (b) 
-	{
-		for (i = 7; i >= 0; i--)
-		{
-			printf("%d", bit_array[i]);
-			
-		}printf("\n");
-		printf("1.函数1\n");
-		printf("2.函数2\n");
-		printf("3.函数3\n");
-		printf("4.函数4\n");
-		printf("5.结束\n");
-		scanf("%d", &n);
-		switch (n)
-		{
-		case 1:
-		{
-			printf("输入位\n");
-			scanf("%u", &bit_number);
-			set_bit(bit_array, bit_number);
-			break;
-		}
-		case 2:
-		{
-			printf("输入位\n");
-			scanf("%u", &bit_number);
-			clear_bit(bit_array, bit_number);
-			break;
-		}
-		case 3:
-		{
-			printf("输入位\n");
-			scanf("%u", &bit_number);
-			printf("输入value\n");
-			scanf("%d", &value);
-			assign_bit(bit_array, bit_number, value);
-			break;
-		}
-		case 4:
-		{
-			printf("输入位：\n");
-			scanf("%u", &bit_number);
-			a = test_bit(bit_array, bit_number);
-			printf("%d\n", a);
-			break;
-		}
-		case 5:
-		{
-			b = 0;
-			break;
-		}
-		}
-
-		for (i = 7; i >= 0; i--)
-		{
-			printf("%d", bit_array[i]);
-
-		}printf("\n");
-	}
-
-	system("pause");
-	return 0;
 }
 
 
